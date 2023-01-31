@@ -7,10 +7,13 @@
 #include"string"
 #include"vector"
 #include"map"
+#include"regex"
 
 #include "degree.h"
 #include "student.h"
 #include "roster.h"
+
+#include <utility>
 
 using std::cout;
 
@@ -85,10 +88,10 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 {
     std::vector<int> daysToCompleteCourses { daysInCourse1, daysInCourse2, daysInCourse3 };
     auto* student = new Student(
-            studentID,
-            firstName,
-            lastName,
-            emailAddress,
+            std::move(studentID),
+            std::move(firstName),
+            std::move(lastName),
+            std::move(emailAddress),
             age,
             daysToCompleteCourses,
             degreeProgram);
@@ -131,6 +134,34 @@ void Roster::printAverageDaysInCourse(string studentID) const
     daysAverage = ( daysAverage / days.size());
     cout << "\nAverage days for student '" << studentID << "': " << std::setprecision(5) << daysAverage << "\n";
 }
+
+void Roster::printInvalidEmails() const
+{
+    const std::regex pattern
+            (R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
+
+    int validEmails = 0;
+
+    cout << "\nSearching for invalid emails...\n";
+
+    for (auto & student : classRosterArray)
+    {
+        if (!std::regex_match(student->getEmailAddress(), pattern))
+        {
+            cout << "\nStudent '" << student->getStudentID() << "' has an invalid email address: " << student->getEmailAddress();
+        } else
+        {
+            validEmails += 1;
+        }
+    }
+
+    if (classRosterArray.size() == validEmails)
+    {
+        cout << "\nNo invalid emails found!\n";
+    }
+
+}
+
 
 Roster::Roster(int numberOfStudents)
 {

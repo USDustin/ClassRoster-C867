@@ -33,6 +33,7 @@ class Roster
 
         void printAll() const;
         void printAverageDaysInCourse(string studentID) const;
+        void printInvalidEmails() const;
 
         explicit Roster(int numberOfStudents);
         ~Roster();
