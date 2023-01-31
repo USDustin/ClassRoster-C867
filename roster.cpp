@@ -3,6 +3,7 @@
 //
 
 #include"iostream"
+#include"iomanip"
 #include"string"
 #include"vector"
 #include"map"
@@ -103,6 +104,7 @@ void Roster::remove(string studentID)
 
 void Roster::printAll()
 {
+    // For each student object in the class roster array call its print method. E3C
     for (int i = 0; i < classRosterArray.size(); ++i)
     {
         classRosterArray.at(i)->print();
@@ -111,7 +113,24 @@ void Roster::printAll()
 
 void Roster::printAverageDaysInCourse(string studentID)
 {
+    std::vector<int> days;
+    double daysAverage = 0.00;
 
+    for (auto & student : classRosterArray)
+    {
+        if (studentID == student->getStudentID())
+        {
+            days = student->getDaysToCompleteCourse();
+            break;
+        }
+    }
+
+    for (int day : days)
+    {
+        daysAverage += day;
+    }
+    daysAverage = ( daysAverage / days.size());
+    cout << "\nAverage days for student '" << studentID << "': " << std::setprecision(5) << daysAverage << "\n";
 }
 
 Roster::Roster(int numberOfStudents)
