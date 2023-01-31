@@ -10,89 +10,129 @@
 #include"student.h"
 #include"roster.h"
 
+using std::cout;
+
 /*
     Student class function definitions
 */
 
 
 // Student ID
-void student::setStudentID(string studentID)
+void Student::setStudentID(string studentID)
 {
     this->studentID = studentID;
 }
-string student::getStudentID()
+string Student::getStudentID()
 {
     return this->studentID;
 }
 
 // First Name
-void student::setFirstName(string firstName)
+void Student::setFirstName(string firstName)
 {
     this->firstName = firstName;
 }
-string student::getFirstName()
+string Student::getFirstName()
 {
     return this->firstName;
 }
 
 // Last Name
-void student::setLastName(string lastName)
+void Student::setLastName(string lastName)
 {
     this->lastName = lastName;
 }
-string student::getLastName()
+string Student::getLastName()
 {
     return this->lastName;
 }
 
 // Email Address
-void student::setEmailAddress(string emailAddress)
+void Student::setEmailAddress(string emailAddress)
 {
     this->emailAddress = emailAddress;
 }
-string student::getEmailAddress()
+string Student::getEmailAddress()
 {
     return this->emailAddress;
 }
 
 // Age
-void student::setAge(int age)
+void Student::setAge(int age)
 {
     this->age = age;
 }
-int student::getAge()
+int Student::getAge()
 {
     return this->age;
 }
 
 // Days to complete course
-void student::setDaysToCompleteCourse(std::vector<int> daysToCompleteCourse)
+void Student::setDaysToCompleteCourse(std::vector<int> daysToCompleteCourse)
 {
     this->daysToCompleteCourse = daysToCompleteCourse;
 }
-std::vector<int> student::getDaysToCompleteCourse()
+std::vector<int> Student::getDaysToCompleteCourse()
 {
     return this->daysToCompleteCourse;
 }
 
 // Degree Program
-void student::setDegreeProgram(DegreeProgram degreeProgram)
+void Student::setDegreeProgram(DegreeProgram degreeProgram)
 {
     this->degreeProgram = degreeProgram;
 }
-DegreeProgram student::getDegreeProgram()
+DegreeProgram Student::getDegreeProgram()
 {
     return this->degreeProgram;
 }
 
-// Print specefic student data - D2E
-void student::printStudentData(string keyword)
+// Print specefic Student data - D2E
+void Student::print()
 {
+    std::vector<int> daysToCompleteCourses = this->getDaysToCompleteCourse();
+    DegreeProgram program = this->getDegreeProgram();
 
+    cout << this->getStudentID() << "\t";
+    cout << "First Name: " << this->getFirstName() << "\t";
+    cout << "Last Name: " << this->getLastName() << "\t";
+    cout << "Age: " << this->getAge() << "\t";
+
+    cout << "daysInCourse: { ";
+    for (int i = 0; i < daysToCompleteCourses.size(); ++i)
+    {
+        cout << daysToCompleteCourses.at(i);
+        if (i < ( daysToCompleteCourses.size() - 1))
+        {
+            cout << ", ";
+        } else if ( i < ( daysToCompleteCourses.size() + 1))
+        {
+            cout << " }";
+        }
+
+    }
+
+    cout << "\t" << "Degree Program: ";
+    if (program == DegreeProgram::SECURITY)
+    {
+        cout << "Security";
+    } else if (program == DegreeProgram::SOFTWARE)
+    {
+        cout << "Software";
+    } else if (program == DegreeProgram::NETWORK)
+    {
+        cout << "Network";
+    } else
+    {
+        cout << "No degree program";
+    }
+
+
+    cout << "\n";
 }
 
 // Constructor - D2D
-student::student(string studentID, string firstName, string lastName, string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram)
+Student::Student(string studentID, string firstName, string lastName, string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram)
 {
     this->studentID = studentID;
     this->firstName = firstName;
@@ -104,6 +144,6 @@ student::student(string studentID, string firstName, string lastName, string ema
 }
 
 // Deconstructor
-student::~student()
+Student::~Student()
 {
 }

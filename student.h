@@ -1,22 +1,22 @@
 //
 // Created by Dustin Luttrell on 1/27/23.
 //
-
+#pragma once
 #ifndef CLASSROSTER_C867_STUDENT_H
 #define CLASSROSTER_C867_STUDENT_H
 
-#pragma once
+
 
 #include"string"
 #include"vector"
 
 #include"degree.h"
-#include"roster.h"
-//#include"student.h"
+//#include"Roster.h"
+//#include"Student.h"
 
 using std::string;
 
-class student
+class Student
 {
 
 private:
@@ -63,13 +63,13 @@ public:
     DegreeProgram getDegreeProgram();
 
     // Student data print function
-    void printStudentData(std::string keyword);
+    void print();
 
     // Student constructor
-    student(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram);
+    Student(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram);
 
     // Student deconstructor
-    ~student();
+    ~Student();
 
 };
 

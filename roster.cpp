@@ -13,61 +13,47 @@
 
 using std::cout;
 
-void roster::add(string studentID, string firstName, string lastName, string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram)
+void Roster::parseStudentDataTable(const string studentDataTable)
 {
+    DegreeProgram degreeProgram;
 
-}
-
-void roster::parseStudentDataTable(const string studentDataTable)
-{
     // Find first comma, and get substring between index 0 and comma index
     int delimiter1 = studentDataTable.find(",");
     string studentID = studentDataTable.substr(0, delimiter1);
-    std::cout << studentID << std::endl;
 
     // Move to index after first comma, look for next comma.
     // Take substring between index after first comma and distance between first and second comma.
     int delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     string firstName = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
-    std::cout << firstName << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     string lastName = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
-    std::cout << lastName << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     string emailAddress = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
-    std::cout << emailAddress << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     int age = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
-    std::cout << age << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     int daysInCourse1 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
-    std::cout << daysInCourse1 << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     int daysInCourse2 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
-    std::cout << daysInCourse2 << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     int daysInCourse3 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
-    std::cout << daysInCourse3 << std::endl;
 
     delimiter2 = delimiter1 + 1;
     delimiter1 = studentDataTable.find(",", delimiter2);
     string degreeProgramString = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
-    //std::cout << degreeProgramString << std::endl;
-
-    DegreeProgram degreeProgram;
 
     static std::map<string, DegreeProgram> degreeProgramMap = {
             {"SECURITY", DegreeProgram::SECURITY},
@@ -75,20 +61,62 @@ void roster::parseStudentDataTable(const string studentDataTable)
             {"NETWORK", DegreeProgram::NETWORK}
     };
 
-
-    for (std::map<string, DegreeProgram>::iterator p = degreeProgramMap.begin(); p != degreeProgramMap.end(); ++p)
+    for (auto iterator = degreeProgramMap.begin(); iterator != degreeProgramMap.end(); iterator++)
     {
-        if (degreeProgramString.compare(p->first))
+        if (degreeProgramString == iterator->first)
         {
-            degreeProgram = p->second;
-            cout << p->first << std::endl;
+            degreeProgram = iterator->second;
+            //cout << degreeProgramString << std::endl;
+            add(studentID,
+                firstName,
+                lastName,
+                emailAddress,
+                age,
+                daysInCourse1,
+                daysInCourse2,
+                daysInCourse3,
+                degreeProgram);
         }
     }
 
+}
+
+void Roster::add(string studentID, string firstName, string lastName, string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram)
+{
+    std::vector<int> daysToCompleteCourses { daysInCourse1, daysInCourse2, daysInCourse3 };
+    auto* student = new Student(
+            studentID,
+            firstName,
+            lastName,
+            emailAddress,
+            age,
+            daysToCompleteCourses,
+            degreeProgram);
+    classRosterArray.reserve(numberOfStudents);
+    classRosterArray.push_back(student);
+}
+
+void Roster::remove(string studentID)
+{
 
 }
 
-roster::roster(int numberOfStudents)
+void Roster::printAll()
+{
+    for (int i = 0; i < classRosterArray.size(); ++i)
+    {
+        classRosterArray.at(i)->print();
+    }
+}
+
+void Roster::printAverageDaysInCourse(string studentID)
+{
+
+}
+
+Roster::Roster(int numberOfStudents)
 {
     this->numberOfStudents = numberOfStudents;
 }
+Roster::~Roster()
+= default;

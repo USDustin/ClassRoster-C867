@@ -11,10 +11,11 @@ using std::endl;
 void printCourseInfo()
 {
 // Print course info. F1
+    cout << "\n\n";
     cout << "Course Title: C867" << endl;
     cout << "Programming Language: C++" << endl;
     cout << "Student ID: 010433124" << endl;
-    cout << "Name: Dustin Luttrell" << endl;
+    cout << "Name: Dustin Luttrell" << "\n\n";
 }
 
 int main()
@@ -29,24 +30,24 @@ int main()
                     "A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
                     "A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
                     "A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
-                    "A5,Dustin,Luttrell,DustinLuttrell17@gmail.com,25, 4, 15, 20,JAE",
+                    "A5,Dustin,Luttrell,DustinLuttrell17@gmail.com,25, 17, 15, 20,SOFTWARE",
             };
 
     int numberOfStudents = sizeof(studentDataTable) / sizeof(studentDataTable[0]);
 
     DegreeProgram degreeProgram;
 
-// F2 Create instance of roster class called classRoster
-    roster classRoster(numberOfStudents);
+// F2 Create instance of Roster class called classRoster
+    Roster classRoster(numberOfStudents);
 
-    // Loop through each student, create student object, and add them to the class roster
+    // Loop through each Student, create Student object, and add them to the class Roster
     for (int i = 0; i < numberOfStudents; i++)
     {
         classRoster.parseStudentDataTable(studentDataTable[i]);
     }
 
-
-// F3 Add each student to the classRoster
+    classRoster.printAll();
+// F3 Add each Student to the classRoster
 
 // F4
 
@@ -54,7 +55,7 @@ int main()
 
 // classRoster.printInvalidEmails()
 
-// Loop through classRosterArray and for each element: classRoster.printAverageDaysInCourse(/*current_object's student id*/); Use getter for student id
+// Loop through classRosterArray and for each element: classRoster.printAverageDaysInCourse(/*current_object's Student id*/); Use getter for Student id
 
 // classRoster.printByDegreeProgram(SOFTWARE);
 
@@ -64,7 +65,7 @@ int main()
 
 // classRoster.remove("A3");
 
-//expected: the above line should print a message saying such a student with this ID was not found.
+//expected: the above line should print a message saying such a Student with this ID was not found.
 
 // F5
 
