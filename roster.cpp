@@ -19,41 +19,41 @@ void Roster::parseStudentDataTable(const string studentDataTable)
     DegreeProgram degreeProgram;
 
     // Find first comma, and get substring between index 0 and comma index
-    int delimiter1 = studentDataTable.find(",");
+    size_t delimiter1 = studentDataTable.find(',');
     string studentID = studentDataTable.substr(0, delimiter1);
 
     // Move to index after first comma, look for next comma.
     // Take substring between index after first comma and distance between first and second comma.
-    int delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    size_t delimiter2 = delimiter1 + 1;
+    delimiter1 = studentDataTable.find(',', delimiter2);
     string firstName = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     string lastName = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     string emailAddress = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     int age = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     int daysInCourse1 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     int daysInCourse2 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     int daysInCourse3 = std::stoi(studentDataTable.substr(delimiter2, delimiter1 - delimiter2));
 
     delimiter2 = delimiter1 + 1;
-    delimiter1 = studentDataTable.find(",", delimiter2);
+    delimiter1 = studentDataTable.find(',', delimiter2);
     string degreeProgramString = studentDataTable.substr(delimiter2, delimiter1 - delimiter2);
 
     static std::map<string, DegreeProgram> degreeProgramMap = {
@@ -62,12 +62,11 @@ void Roster::parseStudentDataTable(const string studentDataTable)
             {"NETWORK", DegreeProgram::NETWORK}
     };
 
-    for (auto iterator = degreeProgramMap.begin(); iterator != degreeProgramMap.end(); iterator++)
+    for (auto const & iterator : degreeProgramMap)
     {
-        if (degreeProgramString == iterator->first)
+        if (degreeProgramString == iterator.first)
         {
-            degreeProgram = iterator->second;
-            //cout << degreeProgramString << std::endl;
+            degreeProgram = iterator.second;
             add(studentID,
                 firstName,
                 lastName,
@@ -102,16 +101,16 @@ void Roster::remove(string studentID)
 
 }
 
-void Roster::printAll()
+void Roster::printAll() const
 {
     // For each student object in the class roster array call its print method. E3C
-    for (int i = 0; i < classRosterArray.size(); ++i)
+    for (auto & student : classRosterArray)
     {
-        classRosterArray.at(i)->print();
+        student->print();
     }
 }
 
-void Roster::printAverageDaysInCourse(string studentID)
+void Roster::printAverageDaysInCourse(string studentID) const
 {
     std::vector<int> days;
     double daysAverage = 0.00;
