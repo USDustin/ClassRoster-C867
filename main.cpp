@@ -10,9 +10,7 @@ using std::endl;
 
 void printCourseInfo()
 {
-// Print course info. F1
-    cout << "\n\n";
-    cout << "Course Title: C867" << endl;
+    cout << "\nCourse Title: C867" << endl;
     cout << "Programming Language: C++" << endl;
     cout << "Student ID: 010433124" << endl;
     cout << "Name: Dustin Luttrell" << "\n\n";
@@ -20,9 +18,6 @@ void printCourseInfo()
 
 int main()
 {
-
-// F1
-    printCourseInfo();
 
     string studentDataTable[] =
             {
@@ -34,42 +29,29 @@ int main()
             };
 
     int numberOfStudents = sizeof(studentDataTable) / sizeof(studentDataTable[0]);
-
-    DegreeProgram degreeProgram;
-
-// F2 Create instance of Roster class called classRoster
     Roster classRoster(numberOfStudents);
 
-    // Loop through each Student, create Student object, and add them to the class Roster
+    printCourseInfo();
+
+    // Loop through each student in data table. Add them to class roster.
     for (int i = 0; i < numberOfStudents; i++)
     {
         classRoster.parseStudentDataTable(studentDataTable[i]);
     }
 
     classRoster.printAll();
-// F3 Add each Student to the classRoster
+    classRoster.printInvalidEmails();
 
-// F4
+    cout << "\n\nPrinting average days in course for each student...\n";
+    for (auto & student : classRoster.classRosterArray)
+    {
+        classRoster.printAverageDaysInCourse(student->getStudentID());
+    }
 
-// classRoster.printAll()
-
-// classRoster.printInvalidEmails()
-
-// Loop through classRosterArray and for each element: classRoster.printAverageDaysInCourse(/*current_object's Student id*/); Use getter for Student id
-
-// classRoster.printByDegreeProgram(SOFTWARE);
-
-// classRoster.remove("A3");
-
-// classRoster.printAll();
-
-// classRoster.remove("A3");
-
-//expected: the above line should print a message saying such a Student with this ID was not found.
-
-// F5
-
-// Implement the destructor to release the memory that was allocated dynamically in Roster.
+    classRoster.printByDegreeProgram(DegreeProgram::SOFTWARE);
+    classRoster.remove("A3");
+    classRoster.printAll();
+    classRoster.remove("A3");
 
     return 0;
 
