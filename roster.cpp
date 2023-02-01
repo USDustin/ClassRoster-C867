@@ -103,14 +103,15 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
      *  Creates a new student object using the 9 parameters and adds the object onto the classRosterArray
      */
 
-    std::vector<int> daysToCompleteCourses { daysInCourse1, daysInCourse2, daysInCourse3 };
+    std::vector<int> daysInCourses;
+    daysInCourses.insert(daysInCourses.end(), { daysInCourse1, daysInCourse2, daysInCourse3 } );
     auto* student = new Student(
-            std::move(studentID),
-            std::move(firstName),
-            std::move(lastName),
-            std::move(emailAddress),
+            studentID,
+            firstName,
+            lastName,
+            emailAddress,
             age,
-            daysToCompleteCourses,
+            daysInCourses,
             degreeProgram);
     classRosterArray.reserve(numberOfStudents);
     classRosterArray.push_back(student);
