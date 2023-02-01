@@ -5,14 +5,10 @@
 #ifndef CLASSROSTER_C867_STUDENT_H
 #define CLASSROSTER_C867_STUDENT_H
 
-
-
 #include"string"
 #include"vector"
 
 #include"degree.h"
-//#include"Roster.h"
-//#include"Student.h"
 
 using std::string;
 
@@ -21,7 +17,6 @@ class Student
 
 private:
 
-    // Private instance variables - D2C
     string studentID;
     string firstName;
     string lastName;
@@ -32,38 +27,30 @@ private:
 
 
 public:
+
     // Accessor and mutator functions for each instance variable - D2A, D2B
-
-    // Student ID
     void setStudentID(string studentID);
-    string getStudentID();
+    string getStudentID() const;
 
-    // First Name
     void setFirstName(string firstName);
-    string getFirstName();
+    string getFirstName() const;
 
-    // Last Name
     void setLastName(string lastName);
-    string getLastName();
+    string getLastName() const;
 
-    // Email Address
     void setEmailAddress(string emailAddress);
-    string getEmailAddress();
+    string getEmailAddress() const;
 
-    // Age
     void setAge(int age);
-    int getAge();
+    int getAge() const;
 
-    // Days to complete course
     void setDaysToCompleteCourse(std::vector<int> daysToCompleteCourse);
-    std::vector<int> getDaysToCompleteCourse();
+    std::vector<int> getDaysToCompleteCourse() const;
 
-    // Degree Program
     void setDegreeProgram(DegreeProgram degreeProgram);
-    DegreeProgram getDegreeProgram();
+    DegreeProgram getDegreeProgram() const;
 
-    // Student data print function
-    void print();
+    void print() const;
 
     // Student constructor
     Student(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram);
