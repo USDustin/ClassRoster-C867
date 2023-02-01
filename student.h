@@ -28,7 +28,6 @@ private:
 
 public:
 
-    // Accessor and mutator functions for each instance variable - D2A, D2B
     void setStudentID(string studentID);
     string getStudentID() const;
 
@@ -53,12 +52,18 @@ public:
     void print() const;
 
     // Student constructor
-    Student(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram);
+    Student(
+            const string &studentID,
+            const string &firstName,
+            const string &lastName,
+            const string &emailAddress,
+            int age,
+            std::vector<int> daysToCompleteCourse,
+            DegreeProgram degreeProgram);
 
     // Student deconstructor
     ~Student();
 
 };
-
 
 #endif //CLASSROSTER_C867_STUDENT_H
