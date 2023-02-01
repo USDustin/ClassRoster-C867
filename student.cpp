@@ -2,18 +2,14 @@
 // Created by Dustin Luttrell on 1/27/23.
 //
 
-#include<iostream>
-#include<utility>
-#include<vector>
+#include"iostream"
+#include"utility"
+#include"vector"
 
 #include"degree.h"
 #include"student.h"
 
 using std::cout;
-
-/*
-    Student class function definitions
-*/
 
 
 void Student::setStudentID(string studentID)
@@ -79,9 +75,17 @@ DegreeProgram Student::getDegreeProgram() const
     return this->degreeProgram;
 }
 
-// Print specefic Student data - D2E
+
 void Student::print() const
 {
+
+    /*
+     *  Requirement D2E: Print specific student data
+     *  Call getters to get each piece of the students data
+     *  Loop through daysToCompleteCourses vector and print each int
+     *  Compare students DegreeProgram to DegreeProgram enum, print string
+     */
+
     std::vector<int> daysToCompleteCourses = this->getDaysToCompleteCourse();
     DegreeProgram program = this->getDegreeProgram();
 
@@ -122,7 +126,14 @@ void Student::print() const
     cout << "\n";
 }
 
-Student::Student(string studentID, string firstName, string lastName, string emailAddress, int age, std::vector<int> daysToCompleteCourse, DegreeProgram degreeProgram)
+Student::Student(
+        const string &studentID,
+        const string &firstName,
+        const string &lastName,
+        const string &emailAddress,
+        int age,
+        std::vector<int> daysToCompleteCourse,
+        DegreeProgram degreeProgram)
 {
     this->studentID = studentID;
     this->firstName = firstName;
