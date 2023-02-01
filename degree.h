@@ -7,11 +7,6 @@
 
 #pragma once
 
-#include"string"
-
 enum class DegreeProgram { SECURITY, NETWORK, SOFTWARE };
-
-
-//const std::vector<std::string> degreeProgramText = { "SECURITY", "NETWORK", "SOFTWARE" };
 
 #endif //CLASSROSTER_C867_DEGREE_H
