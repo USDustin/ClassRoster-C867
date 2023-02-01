@@ -19,7 +19,7 @@ class Roster
         std::vector<Student*> classRosterArray;
         int numberOfStudents;
 
-        void parseStudentDataTable(string studentDataTable);
+        void parseStudentDataTable(const string &studentDataTable);
 
         void add(string studentID,
                  string firstName,
@@ -30,10 +30,10 @@ class Roster
                  int daysInCourse2,
                  int daysInCourse3,
                  DegreeProgram degreeProgram);
-        void remove(string studentID);
+        void remove(const string &studentID);
 
         void printAll() const;
-        void printAverageDaysInCourse(string studentID) const;
+        void printAverageDaysInCourse(const string &studentID) const;
         void printInvalidEmails() const;
         void printByDegreeProgram(DegreeProgram degreeProgram) const;
 

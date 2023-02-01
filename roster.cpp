@@ -8,17 +8,28 @@
 #include"vector"
 #include"map"
 #include"regex"
+#include"utility"
 
-#include "degree.h"
-#include "student.h"
-#include "roster.h"
-
-#include <utility>
+#include"degree.h"
+#include"student.h"
+#include"roster.h"
 
 using std::cout;
 
-void Roster::parseStudentDataTable(const string studentDataTable)
+void Roster::parseStudentDataTable(const string &studentDataTable)
 {
+
+    /*
+     *  Parse string containing individual student information. Comma seperated strings
+     *  Use string find() method to locate first comma then use string substr() method to get the string between 0 and first comma
+     *  Move delimiter to one position past first comma and search for the next comma, substr to get the next string
+     *  Continue for each value
+     *  Create map to convert degree program string to DegreeProgram type
+     *  Loop through map comparing degreeProgramString to the maps key
+     *  If match found set degreeProgram to the keys value
+     *  Call add method with the 9 values found
+     */
+
     DegreeProgram degreeProgram;
 
     // Find first comma, and get substring between index 0 and comma index
@@ -86,6 +97,12 @@ void Roster::parseStudentDataTable(const string studentDataTable)
 
 void Roster::add(string studentID, string firstName, string lastName, string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram)
 {
+
+    /*
+     *  Requirement E3A: Define add method that sets the 9 instance variables for student
+     *  Creates a new student object using the 9 parameters and adds the object onto the classRosterArray
+     */
+
     std::vector<int> daysToCompleteCourses { daysInCourse1, daysInCourse2, daysInCourse3 };
     auto* student = new Student(
             std::move(studentID),
@@ -99,8 +116,16 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
     classRosterArray.push_back(student);
 }
 
-void Roster::remove(string studentID)
+void Roster::remove(const string &studentID)
 {
+
+    /*
+     *  Requirement E3B: Define remove method that removes student from roster using the students ID
+     *  If ID does not exist in the class roster, print an error
+     *  Loop through roster, check if student matches the provided student ID
+     *  If match found remove student from roster, print message, update boolean
+     */
+
     bool studentFound = false;
     for (int i = 0; i < classRosterArray.size(); i++)
     {
@@ -114,22 +139,35 @@ void Roster::remove(string studentID)
     }
     if (!studentFound)
     {
-        cout << "\nStudent '" << studentID << "' was not found\n";
+        cout << "\nError: student '" << studentID << "' was not found\n";
     }
 }
 
 void Roster::printAll() const
 {
+    /*
+     *  Requirement E3C: Call print method on each student object.
+     *  Prints ID, first name, last name, age , days in course, and degree program. Tab seperated.
+     *  E3C does NOT say to print student email addresses.
+     */
+
     cout << "\nPrinting all students...\n\n";
-    // For each student object in the class roster array call its print method. E3C
     for (auto & student : classRosterArray)
     {
         student->print();
     }
 }
 
-void Roster::printAverageDaysInCourse(string studentID) const
+void Roster::printAverageDaysInCourse(const string &studentID) const
 {
+
+    /*
+     *  Requirement E3D: Print average number of days between the 3 courses.
+     *  Finds student matching studentID and calls its method to get the days as a vector
+     *  Adds the days together and divides by the number of days for the average.
+     *  Prints the average.
+     */
+
     std::vector<int> days;
     double daysAverage = 0.00;
 
@@ -152,6 +190,15 @@ void Roster::printAverageDaysInCourse(string studentID) const
 
 void Roster::printInvalidEmails() const
 {
+
+    /*
+     *  Requirement E3E: Verifies student email address and print all invalid email addresses
+     *  Regex pattern checks if email contains '@', '.', and does not contain ' '.
+     *  Loop through students in roster, compare their email address to the regex pattern
+     *  If email does not match print the address
+     *  If all match, print no invalid emails found
+     */
+
     const std::regex pattern
             (R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
 
@@ -181,6 +228,13 @@ void Roster::printInvalidEmails() const
 
 void Roster::printByDegreeProgram(DegreeProgram degreeProgram) const
 {
+
+    /*
+     *  Requirement E3F: Print out students degree program specified by enumerated type
+     *  Loop through students, compare to their degree program, if match found print student info, update studentsFound
+     *  If no students found print message
+     */
+
     string degreeProgramAsString = getDegreeProgramAsString(degreeProgram);
     int studentsFound = 0;
     cout << "\n\nSearching for students with degree program: " << degreeProgramAsString << "\n\n";
@@ -201,6 +255,11 @@ void Roster::printByDegreeProgram(DegreeProgram degreeProgram) const
 
 string Roster::getDegreeProgramAsString(DegreeProgram degreeProgram)
 {
+
+    /*
+     *  Method to convert DegreeProgram to string
+     */
+
     if (degreeProgram == DegreeProgram::SOFTWARE)
     {
         return "SOFTWARE";
