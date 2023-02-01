@@ -18,7 +18,7 @@ void printCourseInfo()
 
 int main()
 {
-
+    
     string studentDataTable[] =
             {
                     "A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
