@@ -7,12 +7,13 @@
 
 #include"string"
 #include"vector"
-//#include "student.h"
 
 using std::string;
 
 class Roster
 {
+    private:
+        static string getDegreeProgramAsString(DegreeProgram degreeProgram);
     public:
 
         std::vector<Student*> classRosterArray;
@@ -34,6 +35,7 @@ class Roster
         void printAll() const;
         void printAverageDaysInCourse(string studentID) const;
         void printInvalidEmails() const;
+        void printByDegreeProgram(DegreeProgram degreeProgram) const;
 
         explicit Roster(int numberOfStudents);
         ~Roster();

@@ -101,11 +101,26 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 
 void Roster::remove(string studentID)
 {
-
+    bool studentFound = false;
+    for (int i = 0; i < classRosterArray.size(); i++)
+    {
+        if (classRosterArray.at(i)->getStudentID() == studentID)
+        {
+            cout << "\nRemoving student '" << classRosterArray.at(i)->getStudentID() << "'...\n";
+            classRosterArray.erase(classRosterArray.begin() + i);
+            cout << "'" << studentID << "' successfully removed!\n";
+            studentFound = true;
+        }
+    }
+    if (!studentFound)
+    {
+        cout << "\nStudent '" << studentID << "' was not found\n";
+    }
 }
 
 void Roster::printAll() const
 {
+    cout << "\nPrinting all students...\n\n";
     // For each student object in the class roster array call its print method. E3C
     for (auto & student : classRosterArray)
     {
@@ -132,7 +147,7 @@ void Roster::printAverageDaysInCourse(string studentID) const
         daysAverage += day;
     }
     daysAverage = ( daysAverage / days.size());
-    cout << "\nAverage days for student '" << studentID << "': " << std::setprecision(5) << daysAverage << "\n";
+    cout << "\nAverage days for student '" << studentID << "': " << std::setprecision(5) << daysAverage;
 }
 
 void Roster::printInvalidEmails() const
@@ -148,7 +163,8 @@ void Roster::printInvalidEmails() const
     {
         if (!std::regex_match(student->getEmailAddress(), pattern))
         {
-            cout << "\nStudent '" << student->getStudentID() << "' has an invalid email address: " << student->getEmailAddress();
+            cout << "\nStudent '" << student->getStudentID() << "' has an invalid email address: "
+                << student->getEmailAddress();
         } else
         {
             validEmails += 1;
@@ -158,8 +174,44 @@ void Roster::printInvalidEmails() const
     if (classRosterArray.size() == validEmails)
     {
         cout << "\nNo invalid emails found!\n";
+        return;
     }
 
+}
+
+void Roster::printByDegreeProgram(DegreeProgram degreeProgram) const
+{
+    string degreeProgramAsString = getDegreeProgramAsString(degreeProgram);
+    int studentsFound = 0;
+    cout << "\n\nSearching for students with degree program: " << degreeProgramAsString << "\n\n";
+    for(auto & student : classRosterArray)
+    {
+        if (student->getDegreeProgram() == degreeProgram)
+        {
+            student->print();
+            studentsFound++;
+        }
+    }
+
+    if (studentsFound == 0)
+    {
+        cout << "\nNo students found with degree program: " << degreeProgramAsString << "\n";
+    }
+}
+
+string Roster::getDegreeProgramAsString(DegreeProgram degreeProgram)
+{
+    if (degreeProgram == DegreeProgram::SOFTWARE)
+    {
+        return "SOFTWARE";
+    } else if (degreeProgram == DegreeProgram::SECURITY)
+    {
+        return "SECURITY";
+    } else if (degreeProgram == DegreeProgram::NETWORK)
+    {
+        return "NETWORK";
+    }
+    return "404";
 }
 
 
