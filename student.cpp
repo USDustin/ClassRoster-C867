@@ -135,13 +135,13 @@ Student::Student(
         std::vector<int> daysToCompleteCourse,
         DegreeProgram degreeProgram)
 {
-    this->studentID = studentID;
-    this->firstName = firstName;
-    this->lastName = lastName;
-    this->emailAddress = emailAddress;
-    this->age = age;
-    this->daysToCompleteCourse = daysToCompleteCourse;
-    this->degreeProgram = degreeProgram;
+    this->setStudentID(studentID);
+    this->setFirstName(firstName);
+    this->setLastName(lastName);
+    this->setEmailAddress(emailAddress);
+    this->setAge(age);
+    this->setDaysToCompleteCourse(daysToCompleteCourse);
+    this->setDegreeProgram(degreeProgram);
 }
 
 Student::~Student() = default;
