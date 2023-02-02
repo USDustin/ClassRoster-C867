@@ -280,4 +280,6 @@ Roster::Roster(int numberOfStudents)
     this->numberOfStudents = numberOfStudents;
 }
 Roster::~Roster()
-= default;
+{
+    cout << "\nRoster Deconstructor called\n";
+}
